@@ -70,6 +70,8 @@
   Based on the idea of how to saturate compute volume. hid latency while
   performing other things during wait eg. memory access or pipeline stall.
 
+  Computation Intensity q=$\frac{f}{m}$, f=$\textit{fp ops}$, m=$\textit{\# mem ops}$
+
   $\text{Memory instructions} = \text{memory}_\text{bw} \times \text{memory}_\text{latency}$
 
   $\text{Arithmetic Instructions} = \text{arith}_\text{throughput} \times \text{arith}_\text{latency}$
@@ -77,6 +79,7 @@
   $\text{Concurrency} = \text{memory}_\text{bandwidth} \times \text{memory}_\text{latency}$
 
   \subsection{Speedup \& Efficiency}
+
 
   GPU speedup: $S_\text{GPU} = \frac{\text{fastest CPU completion
   time}}{\text{completion time on GPU}}$
@@ -156,6 +159,11 @@
 
   Spatial Cache locality: use of a memory address is close to a previously used
   one
+
+  One example of increasing spatial locality is packing, which can reduce caches misses:
+  \begin{center}
+    \includegraphics[width=2in]{images/packing.png}
+  \end{center}
 
   \section{Matrix Multiply}
   Naive Matrix Mult: $q = \frac{2n^3}{n^3 + 3n^2}$. With $2n^3$: $n^3$ being
@@ -314,8 +322,7 @@
   Comp intensity naive on gpu: $q = \frac{2n^3}{2n^3 + 2n^2}$, $2n^2$ load and
   stores from $C$. $2n^3$ loads from $A\&B$
 
-  Matrix Multiply on GPU – techniques (e.g. tiling): its dumb look at pa2. u
-  need a lot of sync thraed shit between loading shit in and performing
+  Matrix Multiply on GPU – techniques (e.g. tiling): its dumb look at pa2. A lot of syncing threads is needed between loading shit in and performing
   computation on it
 
   Estimated speedup from tiling: fuck if i know like 2x?
@@ -495,7 +502,14 @@ on a threadid.
 
   \section{Asics}
 
-  How systolic array does matrix multiplication
+
+  An Application Specific Integrated Chip is described by its name. Example includes a Switch ASIC for routing, google's TPUs, or any other specially designed Chip
+
+  How systolic array does matrix multiplication:
+
+  Systolic Arrays are similars to registers but while having data flow throw through it apply some operationg to the data flowing through it. 
+
+  MM with a Systolic Array:
   \begin{center}
     \includegraphics[width=2in]{images/tpu-block.jpg}
     \includegraphics[width=2in]{images/tpu-inst.jpg}
@@ -509,25 +523,21 @@ on a threadid.
     \includegraphics[width=2in]{images/tpu-roofline.jpg}
   \end{center}
 
-  Difference between Cannon’s algorithm and TPU’s systolic array: main
-  differences is with the systolic array elements are being fed into the array
-  and ending up a some sum buffer to accumulate the values of the resultant
-  matrix whereas wit canon's algorithm it requires for the data to already be
-  loaded into those nodes of memory and yada yada data cycles around or some
-  shit idk.
+  Difference between Canon’s algorithm and TPU’s systolic array: 
+  The systolic array elements are being fed into the array
+  and ending up a some sum buffer to accumulate over TIME, not immediately, but they are in Canon's.
 
-  Why CISC instructions in the TPU: 
-
-  dog shit ipc
-
+  Why CISC instructions in the TPU
+  Instrucitons need to be complex for the TPU, sometimes spending multiple cycles in decoding and execution. Can generate weights, decouples access/execute philosphy, etc. (Leads to "dogshit ipc")
+  
   \section{Higher Level Abstractions}
 
   Major differences between, pthreads, openMP, Cuda, MPI - fuck you figure it
-  out.
+  out. - Paco \& Khai
 
   \section{Examples}
   
-
+  none
 
 
 
