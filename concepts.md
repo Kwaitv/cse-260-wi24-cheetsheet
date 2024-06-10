@@ -1,18 +1,3 @@
-# General Concepts
-Amdahl’s Law – strong scaling.
-Gustafson’s Law – weak scaling
-Little’s Law
-Speedup (Sp)  and Efficiency (Ep)
-Memory Hierarchy – relative speeds and sizes
-
-## Performance Prediction
-W(n)/D(n)   -  number of “nodes” vs depth of longest path
-Tcomp = D(n) + [W(n) – D(n)]/p
- 
-# Roofline model 
-Interpretation of roofline model
-Relationship to arithmetic capability and memory bandwidth 
-
 # Matrix Multiply
 Calculating q (computational intensity) 
 Tiling/blocking/Packing
@@ -91,13 +76,6 @@ One-sided communications
 ## Modeling Performance of MPI (γ, α, β model)
 TotalTIme = γ x #ops  +  #msgs x (α + β-1∞n)  where n is the msg size.
 
-## Super linear speedup
-Fake vs Real
-Amdahl’s Law – strong scaling
-Gustafson – weak scaling
-What do we mean by isoefficiency function N= f(P)
-Grind time.
-Why would one use a strip instead of a rectangular submesh based on problem size and
 
 
 ## Communication parameters 
