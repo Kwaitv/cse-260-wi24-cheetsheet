@@ -119,7 +119,7 @@
   \subsubsection{Super Linear Speedup}
   when $S_p > P \implies \frac{S_p}{p} = E_p > 1$. Real super linear scaling
   exiss when $P$ scales things such as memory/cache sizes/bandwidth or yields
-  more network bandwidht. Can be faked with poor algorithm or measurement
+  more network bandwidth. Can be faked with poor algorithm or measurement
   technique. often suggests a better serial algorithm exists since $S_p =
   \frac{T_s}{T_p}; E_p = \frac{S_p}{p} > 1 \implies T_s > p\times T_p$ meaning
   $T_s$ is not optimal and there exists some serial that could perform the
@@ -169,28 +169,108 @@
 
   GOTOblas:
   \begin{center}
-    \includegraphics[width=\linewidth]{images/gotoblas.jpg}
+    \includegraphics[width=2in]{images/gotoblas.jpg}
   \end{center}
   $q = \frac{2n^3}{(2N + 2) * \frac{n^2}{L}}$. Where $N$ is size of matrix macro
   kernel and $L$ is size of cache line.
 
+  Calculating q (computational intensity) | 
+  Tiling/blocking/Packing |
+  number of ops. in C = AB + C  for m,n,k |
+  outer vs inner product
+
+
   \subsection{Parallel Matrix Multiply}
+
+  Cannon’s algorithm (Tp and Ep) |
+  Communication avoidance |
+  Theoretical lower bound on communication (\# OF words moved and \# of
+  messages). |
+  Johnson’s 3D algorithm |
+  2.5D algorithm
 
   \section{SIMD}
 
+  Vectorization Stripmining |
+  Control divergence |
+  Loop carried dependencies
+
   \section{Multithreading}
+
+  OpenMP – ideas behind |
+  Parallelization of loops – types of dependencies (true, output, anti) |
+  Pthreads – ideas behind |
+  OpenMP and dataraces |
+  Barriers, atomics, mutex |
+  OpenMP reductions
 
   \section{Gpu Architecture}
 
+  GPU Memory Hierarchy |
+  GPU Thread Hierarchy |
+  GPU warp scheduling |
+  GPU thread mapping to warps |
+  Matrix Multiply on GPU – techniques (e.g. tiling) |
+  Estimated speedup from tiling |
+  Parallel Speedup computation |
+  Occupancy and interpretation of occupancy |
+  GPU Memory Interleaving |
+  GPU Memory Coalescing |
+  GPU Bank access and bank conflict avoidance |
+  Thread Level and Instruction Level Parallelism |
+  Concept of Arithmetic Latency and Memory Latency in GPUs |
+  Little’s Law and GPUs |
+  Cusp behavior – TLP and ILP |
+  CUDA compilation flow to achieve source code portability between generations |
+  (nvcc->ptx->ptxas->binary) |
+  Predication vs. branching, thread divergence |
+  Stripmining in the context of GPUs |
+  – pipelines |
+  Pipeline hazards, dependencies  |
+  CPU pipelines vs GPU pipelines |
+  Emphasis on latency reduction, emphasis on throughput |
+  Scoreboarding in a GPU – detect when dependencies are resolved |
+  Control divergence in a GPU |
+  Costs – why does it happen |
+  Do all branches cause control divergence? |
+  Reduction operation in a GPU and how to lessen control divergence
+
   \section{Message Passing}
+
+  Bulk Synchronous Parallelism model |
+  Stencil Methods |
+  What kinds of problems are amenable to stencil methods |
+  ghost cells |
+  Basic MPI concepts : Rank, ordering guarantees/causality, synchronous and  |
+  asynchronous models. Mpi communicators, mpi tags. |
+  \verb|MPI_Bcast|, \verb|Scatter|, \verb|Gather| \verb|Reduce|, etc.  and why you might use them (you don’t 
+  need to memorize their detailed behavior, but you should know generally when 
+  you might use them). |
+  Difference in user semantics for blocking and non-blocking send/recv (when you
+  can use the buffers, what you have to do to synchronize non-blocking comms) |
+  One-sided communications
 
   \subsection{MPI Perf modeling}
 
+  $\text{TotalTime} = \gamma \times \#\text{ops}  +  \#\text{msgs} \times (\alpha +
+  \beta^{-1}_\infty \times n)$  where $n$ is the msg size, $\alpha$ is message
+  latency, $\beta_\infty$ is peak bandwidth and $\gamma$ is time per op.
+
   \subsection{Communication Parameters}
+
+  Surface vs volume effect |
+  Effect of higher dimension grid on surface to volume effect. |
+  Effect of higher dimensions on cache locality.
 
   \section{Asics}
 
+  How systolic array does matrix multiplication |
+  Difference between Cannon’s algorithm and TPU’s systolic array |
+  Why CISC instructions in the TPU
+
   \section{Higher Level Abstractions}
+
+  Major differences between, pthreads, openMP, Cuda, MPI
 
   \section{Examples}
   
